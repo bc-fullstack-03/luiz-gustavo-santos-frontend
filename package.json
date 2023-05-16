@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "lint": "eslint src --report-unused-disable-directives --max-warnings 0",
+    "lint": "eslint src --max-warnings 0",
     "preview": "vite preview",
     "prepare": "husky install",
     "lint-staged": "lint-staged"
@@ -16,9 +16,12 @@
     "*": "prettier --write --ignore-unknown"
   },
   "dependencies": {
+    "@phosphor-icons/react": "^2.0.9",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "styled-components": "^6.0.0-rc.1"
+    "react-router-dom": "^6.11.1",
+    "styled-components": "^5.3.8",
+    "styled-media-query": "^2.1.2"
   },
   "devDependencies": {
     "@types/node": "^20.1.4",
