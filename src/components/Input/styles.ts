@@ -71,7 +71,16 @@ export const Label = styled.label`
     margin-bottom: ${theme.spacings.xxsmall};
 
     ${media.lessThan('medium')`
-      font-size: ${theme.font.sizes.medium}
+      font-size: ${theme.font.sizes.medium};
     `}
+  `}
+`
+
+export const ErrorMessage = styled.span`
+  ${({ theme }) => css`
+    display: block;
+    color: red;
+    font-size: ${theme.font.sizes.xsmall};
+    margin-top: ${theme.spacings.xxsmall};
   `}
 `

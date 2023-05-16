@@ -1,7 +1,11 @@
 import styled, { css } from 'styled-components'
 
-export const Wrapper = styled.button`
-  ${({ theme }) => css`
+type WrapperProps = {
+  disabled?: boolean
+}
+
+export const Wrapper = styled.button<WrapperProps>`
+  ${({ theme, disabled }) => css`
     width: 100%;
     height: 4.8rem;
     display: flex;
@@ -16,5 +20,11 @@ export const Wrapper = styled.button`
     border-radius: 0.4rem;
     cursor: pointer;
     font-weight: ${theme.font.bold};
+
+    ${disabled &&
+    css`
+      filter: brightness(0.5);
+      cursor: not-allowed;
+    `}
   `}
 `
