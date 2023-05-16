@@ -1,5 +1,5 @@
 import { EnvelopeSimple, Lock, User } from '@phosphor-icons/react'
-import { string, z } from 'zod'
+import { z } from 'zod'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useNavigate } from 'react-router-dom'
@@ -10,9 +10,9 @@ import { signup } from '@/services/auth'
 import { Button, Form, Input } from '@/components'
 
 const createUserSchema = z.object({
-  name: string().min(3, 'O nome deve ter no mínimo 3 letras'),
-  email: string().nonempty('O email é obrigatório').email('Email inválido'),
-  password: string().min(6, 'A senha deve conter no mínimo 6 caracteres')
+  name: z.string().min(3, 'O nome deve ter no mínimo 3 letras'),
+  email: z.string().nonempty('O email é obrigatório').email('Email inválido'),
+  password: z.string().min(6, 'A senha deve conter no mínimo 6 caracteres')
 })
 
 type CreateUserFormData = z.infer<typeof createUserSchema>
@@ -43,7 +43,7 @@ const SignUp = () => {
       navigate('/')
     } catch (error) {
       toast.error('Ocorreu um erro ao salvar os dados')
-      console.log('REGISTER', error)
+      console.log('REGISTER_ERROR', error)
     }
   }
 
