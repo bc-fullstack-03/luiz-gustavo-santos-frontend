@@ -1,5 +1,6 @@
 export { AuthLayout } from './AuthLayout'
 export { Button } from './Button'
+export { Dashboard } from './Dashboard'
 export { Form } from './Form'
 export { Input } from './Input'
 export { ProtectedPage } from './ProtectedPage'

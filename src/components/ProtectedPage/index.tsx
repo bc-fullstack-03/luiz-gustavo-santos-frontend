@@ -1,6 +1,7 @@
-import { Navigate, Outlet, useLocation } from 'react-router'
+import { Navigate, useLocation } from 'react-router'
 
 import { useAuth } from '@/hooks'
+import { Dashboard } from '..'
 
 export const ProtectedPage = () => {
   const { token, user } = useAuth()
@@ -11,5 +12,5 @@ export const ProtectedPage = () => {
     return <Navigate to="/" state={{ from: location }} replace />
   }
 
-  return <Outlet />
+  return <Dashboard />
 }
