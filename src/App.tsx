@@ -9,6 +9,7 @@ import { AuthLayout, ProtectedPage } from './components'
 
 import SignIn from './pages/SignIn'
 import SignUp from './pages/SignUp'
+import Feed from './pages/Feed'
 
 function App() {
   return (
@@ -21,7 +22,7 @@ function App() {
           <Route path="signup" element={<SignUp />} />
         </Route>
         <Route path="/app" element={<ProtectedPage />}>
-          <Route path="feed" index element={<h1>FEED USER</h1>} />
+          <Route path="feed" index element={<Feed />} />
         </Route>
       </Routes>
     </ThemeProvider>
