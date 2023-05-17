@@ -1,5 +1,5 @@
 import { EnvelopeSimple, Lock } from '@phosphor-icons/react'
-import { useNavigate } from 'react-router-dom'
+import { Navigate, useNavigate } from 'react-router-dom'
 import { useMutation } from '@tanstack/react-query'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -7,6 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { toast } from 'react-hot-toast'
 import jwtDecode from 'jwt-decode'
 
+import { useAuth } from '@/hooks'
 import { signin } from '@/services/auth'
 
 import { Button, Form, Input } from '@/components'
@@ -30,6 +31,7 @@ type TokenDecodedData = {
 const SignIn = () => {
   const navigate = useNavigate()
   const mutation = useMutation({ mutationFn: signin })
+  const { token, user } = useAuth()
 
   const {
     handleSubmit,
@@ -59,6 +61,10 @@ const SignIn = () => {
       toast.error('Credenciais inválidas')
       console.log('LOGIN_ERROR', error)
     }
+  }
+
+  if (token && user) {
+    return <Navigate to="/app/feed" replace={false} />
   }
 
   return (

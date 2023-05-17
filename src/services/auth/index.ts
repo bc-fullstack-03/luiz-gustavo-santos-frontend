@@ -20,3 +20,8 @@ export const signup = async ({ name, password, user }: RegisterBody) => {
     user
   })
 }
+
+export const signOut = () => {
+  localStorage.removeItem('parrot:token')
+  localStorage.removeItem('parrot:user')
+}

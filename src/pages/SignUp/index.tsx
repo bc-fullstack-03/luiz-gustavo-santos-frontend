@@ -2,11 +2,13 @@ import { EnvelopeSimple, Lock, User } from '@phosphor-icons/react'
 import { z } from 'zod'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useNavigate } from 'react-router-dom'
+import { Navigate, useNavigate } from 'react-router-dom'
 import { toast } from 'react-hot-toast'
 import { useMutation } from '@tanstack/react-query'
 
+import { useAuth } from '@/hooks'
 import { signup } from '@/services/auth'
+
 import { Button, Form, Input } from '@/components'
 
 const createUserSchema = z.object({
@@ -20,6 +22,7 @@ type CreateUserFormData = z.infer<typeof createUserSchema>
 const SignUp = () => {
   const navigate = useNavigate()
   const mutation = useMutation({ mutationFn: signup })
+  const { token, user } = useAuth()
 
   const {
     handleSubmit,
@@ -45,6 +48,10 @@ const SignUp = () => {
       toast.error('Ocorreu um erro ao salvar os dados')
       console.log('REGISTER_ERROR', error)
     }
+  }
+
+  if (token && user) {
+    return <Navigate to="/app/feed" replace={false} />
   }
 
   return (
