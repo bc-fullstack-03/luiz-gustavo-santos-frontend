@@ -4,7 +4,7 @@ import { Sidebar } from '..'
 
 import * as S from './styles'
 
-export const Dashboard = () => {
+export const AppLayout = () => {
   return (
     <S.Wrapper>
       <Sidebar />
