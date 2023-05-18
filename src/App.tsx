@@ -5,7 +5,7 @@ import { Toaster } from 'react-hot-toast'
 import { GlobalStyles } from './styles/global'
 import theme from './styles/theme'
 
-import { AuthLayout, ProtectedPage } from './components'
+import { AppLayout, AuthLayout, ProtectedPage } from './components'
 
 import SignIn from './pages/SignIn'
 import SignUp from './pages/SignUp'
@@ -23,7 +23,14 @@ function App() {
           <Route index element={<SignIn />} />
           <Route path="signup" element={<SignUp />} />
         </Route>
-        <Route path="/app" element={<ProtectedPage />}>
+        <Route
+          path="/app"
+          element={
+            <ProtectedPage>
+              <AppLayout />
+            </ProtectedPage>
+          }
+        >
           <Route path="feed" index element={<Feed />} />
           <Route path="profile" index element={<Profile />} />
           <Route path="friends" index element={<Friends />} />

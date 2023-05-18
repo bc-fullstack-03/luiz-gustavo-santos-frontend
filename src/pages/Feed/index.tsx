@@ -1,8 +1,11 @@
+import { FeedList, Header } from '@/components'
+
 const Feed = () => {
   return (
-    <div style={{ display: 'flex', height: '100vh' }}>
-      <h1>Feed</h1>
-    </div>
+    <>
+      <Header title="Página Incial" />
+      <FeedList />
+    </>
   )
 }
 
