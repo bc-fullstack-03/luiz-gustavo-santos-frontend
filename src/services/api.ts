@@ -10,7 +10,7 @@ const api = axios.create({
 
 api.interceptors.request.use(
   async (config) => {
-    const token = JSON.parse(localStorage.getItem('parrot:token') as string)
+    const token = localStorage.getItem('parrot:token')
 
     if (!token) {
       return config
