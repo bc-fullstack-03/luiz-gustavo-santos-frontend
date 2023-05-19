@@ -7,11 +7,12 @@ type ProtectedPageProps = {
 }
 
 export const ProtectedPage: React.FC<ProtectedPageProps> = ({ children }) => {
-  const { token, user } = useAuth()
+  const { token, userId } = useAuth()
+  console.log(token, userId)
 
   const location = useLocation()
 
-  if (!token && !user?.id) {
+  if (!token && !userId) {
     return <Navigate to="/" state={{ from: location }} replace />
   }
 

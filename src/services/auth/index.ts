@@ -1,27 +1,22 @@
 import api from '../api'
-import {
-  LoginBody,
-  LoginResponse,
-  RegisterBody,
-  RegisterResponse
-} from './types'
+import { LoginBody, LoginResponse, RegisterBody } from './types'
 
-export const signin = async ({ user, password }: LoginBody) => {
-  return api.post<LoginResponse>('/security/login', {
-    user,
+export const signin = async ({ email, password }: LoginBody) => {
+  return api.post<LoginResponse>('/authentication/login', {
+    email,
     password
   })
 }
 
-export const signup = async ({ name, password, user }: RegisterBody) => {
-  return api.post<RegisterResponse>('/security/register', {
+export const signup = async ({ name, password, email }: RegisterBody) => {
+  return api.post('/user/create', {
     name,
     password,
-    user
+    email
   })
 }
 
 export const signOut = () => {
   localStorage.removeItem('parrot:token')
-  localStorage.removeItem('parrot:user')
+  localStorage.removeItem('parrot:userId')
 }

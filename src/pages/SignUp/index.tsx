@@ -22,7 +22,7 @@ type CreateUserFormData = z.infer<typeof createUserSchema>
 const SignUp = () => {
   const navigate = useNavigate()
   const mutation = useMutation({ mutationFn: signup })
-  const { token, user } = useAuth()
+  const { token, userId } = useAuth()
 
   const {
     handleSubmit,
@@ -39,7 +39,7 @@ const SignUp = () => {
       await mutation.mutateAsync({
         name,
         password,
-        user: email
+        email
       })
 
       toast.success('Cadastrado com sucesso!')
@@ -50,7 +50,7 @@ const SignUp = () => {
     }
   }
 
-  if (token && user) {
+  if (token && userId) {
     return <Navigate to="/app/feed" replace={false} />
   }
 

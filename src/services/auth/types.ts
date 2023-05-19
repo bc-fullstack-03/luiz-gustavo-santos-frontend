@@ -1,21 +1,15 @@
 export type LoginBody = {
-  user: string
+  email: string
   password: string
 }
 
 export type LoginResponse = {
-  accessToken: string
+  id: string
+  token: string
 }
 
 export type RegisterBody = {
   name: string
-  user: string
+  email: string
   password: string
-}
-
-export type RegisterResponse = {
-  _id: string
-  user: string
-  createdAt: string
-  updateAt: string
 }
