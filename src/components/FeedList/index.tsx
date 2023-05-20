@@ -6,8 +6,8 @@ export const FeedList = () => {
 
   return (
     <div>
-      {data?.map((post) => (
-        <FeedItem key={post._id} post={post} />
+      {data?.content.map((post) => (
+        <FeedItem key={post.id} post={post} />
       ))}
     </div>
   )

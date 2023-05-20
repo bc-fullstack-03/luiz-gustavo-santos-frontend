@@ -27,13 +27,9 @@ export const Body = styled.div`
   ${({ theme }) => css`
     padding: 0 ${theme.spacings.large};
 
-    h4 {
-      font-size: ${theme.font.sizes.medium};
-      margin-bottom: ${theme.spacings.xsmall};
-    }
-
     p {
       font-size: ${theme.font.sizes.small};
+      margin-bottom: ${theme.spacings.xsmall};
     }
   `}
 `

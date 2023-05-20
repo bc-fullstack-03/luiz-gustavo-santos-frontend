@@ -8,7 +8,6 @@ type ProtectedPageProps = {
 
 export const ProtectedPage: React.FC<ProtectedPageProps> = ({ children }) => {
   const { token, userId } = useAuth()
-  console.log(token, userId)
 
   const location = useLocation()
 
