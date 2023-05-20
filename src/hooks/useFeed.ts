@@ -1,34 +1,39 @@
 import { useQuery } from '@tanstack/react-query'
 
 import api from '@/services/api'
-
-export interface Profile {
-  _id: string
-  name: string
-  user: string
-}
-
 export interface Post {
-  _id: string
-  title: string
-  description: string
-  profile: Profile
-  comments: string[]
-  likes: string[]
-  image: boolean
+  id: string
+  content: string
+  image: string
+  userId: string
+  userName: string
+  comments: number
+  likes: number
   createdAt: Date
   updateAt: Date
 }
 
-export const fetchFeed = async () => {
-  const { data } = await api.get<Post[]>('/feed')
+type GetPostResponse = {
+  content: Post[]
+  pageNumber: number
+  pageSize: number
+  totalPages: number
+  totalElements: number
+}
+
+export const fetchFeed = async (page = 1) => {
+  const { data } = await api.get<GetPostResponse>('/post', {
+    params: {
+      page
+    }
+  })
 
   return data
 }
 
-export const useFeed = () => {
+export const useFeed = (page = 1) => {
   return useQuery({
-    queryKey: ['feed'],
-    queryFn: () => fetchFeed()
+    queryKey: ['feed', page],
+    queryFn: () => fetchFeed(page)
   })
 }

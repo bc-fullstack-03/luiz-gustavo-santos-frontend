@@ -1,17 +1,11 @@
 import { getItemLocalStorage } from '@/utils/getItemLocalStore'
 
-type StorageUserData = {
-  id: string
-  profile: string
-  email: string
-}
-
 export const useAuth = () => {
-  const token = getItemLocalStorage<string>('parrot:token')
-  const user = getItemLocalStorage<StorageUserData>('parrot:user')
+  const token = getItemLocalStorage('parrot:token')
+  const userId = getItemLocalStorage('parrot:userId')
 
   return {
     token,
-    user
+    userId
   }
 }

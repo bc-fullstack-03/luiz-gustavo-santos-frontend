@@ -5,7 +5,6 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { toast } from 'react-hot-toast'
-import jwtDecode from 'jwt-decode'
 
 import { useAuth } from '@/hooks'
 import { signin } from '@/services/auth'
@@ -22,16 +21,10 @@ const loginUserSchema = z.object({
 
 type LoginUserFormData = z.infer<typeof loginUserSchema>
 
-type TokenDecodedData = {
-  _id: string
-  user: string
-  profile: string
-}
-
 const SignIn = () => {
   const navigate = useNavigate()
   const mutation = useMutation({ mutationFn: signin })
-  const { token, user } = useAuth()
+  const { token, userId } = useAuth()
 
   const {
     handleSubmit,
@@ -44,18 +37,11 @@ const SignIn = () => {
     password
   }) => {
     try {
-      const { data } = await mutation.mutateAsync({ password, user: email })
-      const decodeToken = jwtDecode(data.accessToken) as TokenDecodedData
-      const user = {
-        email: decodeToken.user,
-        id: decodeToken._id,
-        profile: decodeToken.profile
-      }
+      const { data } = await mutation.mutateAsync({ password, email })
+      localStorage.setItem('parrot:token', data.token)
+      localStorage.setItem('parrot:userId', data.id)
 
-      localStorage.setItem('parrot:token', data.accessToken)
-      localStorage.setItem('parrot:user', JSON.stringify(user))
-
-      toast.success('Logado com sucesso')
+      toast.success('Login com sucesso!')
       navigate('/app/feed')
     } catch (error) {
       toast.error('Credenciais inválidas')
@@ -63,7 +49,7 @@ const SignIn = () => {
     }
   }
 
-  if (token && user) {
+  if (token && userId) {
     return <Navigate to="/app/feed" replace={false} />
   }
 

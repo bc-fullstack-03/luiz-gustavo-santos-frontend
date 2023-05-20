@@ -1,37 +1,38 @@
 import { Chat, Heart, UserCircle } from '@phosphor-icons/react'
 
-import catImage from '@/assets/images/cat.jpg'
 import { Post } from '@/hooks/useFeed'
 
 import * as S from './styles'
+import { useState } from 'react'
 
 type FeedItemProps = {
   post: Post
 }
 
 export const FeedItem: React.FC<FeedItemProps> = ({ post }) => {
+  const [liked, setLiked] = useState(true)
+
   return (
     <S.Wrapper>
       <S.Header>
         <UserCircle weight="thin" size={32} />
-        <h3>{post.profile.name}</h3>
+        <h3>{post.userName}</h3>
       </S.Header>
       <S.Body>
-        <h4>{post.title}</h4>
-        {post.image ? (
-          <S.Image src={catImage} alt="Imagem" />
-        ) : (
-          <p>{post.description}</p>
-        )}
+        <p>{post.content}</p>
+        {post.image && <S.Image src={post.image} alt="Imagem" />}
       </S.Body>
       <S.Footer>
         <S.WrapperIcon>
           <Chat weight="thin" size={24} />
-          {post.comments.length}
+          {post.comments}
         </S.WrapperIcon>
-        <S.WrapperIcon>
-          <Heart weight="thin" size={24} />
-          {post.comments.length}
+        <S.WrapperIcon
+          isLiked={liked}
+          onClick={() => setLiked((prev) => !prev)}
+        >
+          <Heart weight={liked ? 'fill' : 'thin'} size={24} />
+          {post.likes}
         </S.WrapperIcon>
       </S.Footer>
     </S.Wrapper>
