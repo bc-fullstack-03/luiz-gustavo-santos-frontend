@@ -1,5 +1,14 @@
+import { Container, FriendsList, Header } from '@/components'
+
 const Friends = () => {
-  return <div>Friends</div>
+  return (
+    <>
+      <Header title="Amigos" />
+      <Container>
+        <FriendsList />
+      </Container>
+    </>
+  )
 }
 
 export default Friends
