@@ -1,13 +1,14 @@
 import { useQuery } from '@tanstack/react-query'
 
 import api from '@/services/api'
+import { Comment } from './useComments'
 export interface Post {
   id: string
   content: string
   image: string
   userId: string
   userName: string
-  comments: number
+  comments: Comment[]
   likes: number
   createdAt: Date
   updateAt: Date

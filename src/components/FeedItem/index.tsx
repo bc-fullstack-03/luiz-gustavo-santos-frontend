@@ -4,6 +4,7 @@ import { Post } from '@/hooks/useFeed'
 
 import * as S from './styles'
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 type FeedItemProps = {
   post: Post
@@ -23,10 +24,13 @@ export const FeedItem: React.FC<FeedItemProps> = ({ post }) => {
         {post.image && <S.Image src={post.image} alt="Imagem" />}
       </S.Body>
       <S.Footer>
-        <S.WrapperIcon>
-          <Chat weight="thin" size={24} />
-          {post.comments}
-        </S.WrapperIcon>
+        <Link to={`/app/post/${post.id}`}>
+          <S.WrapperIcon>
+            <Chat weight="thin" size={24} />
+            {post.comments.length}
+          </S.WrapperIcon>
+        </Link>
+
         <S.WrapperIcon
           isLiked={liked}
           onClick={() => setLiked((prev) => !prev)}

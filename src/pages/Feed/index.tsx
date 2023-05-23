@@ -1,10 +1,12 @@
-import { FeedList, Header } from '@/components'
+import { Container, FeedList, Header } from '@/components'
 
 const Feed = () => {
   return (
     <>
       <Header title="Página Incial" />
-      <FeedList />
+      <Container>
+        <FeedList />
+      </Container>
     </>
   )
 }
