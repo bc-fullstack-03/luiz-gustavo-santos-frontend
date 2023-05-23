@@ -4,7 +4,7 @@ import { House, User, Users } from '@phosphor-icons/react'
 import logo from '@/assets/logo-white.svg'
 
 import * as S from './styles'
-import { Button } from '..'
+import { ModalCreatePost } from '..'
 
 export const Sidebar = () => {
   return (
@@ -27,7 +27,7 @@ export const Sidebar = () => {
           <S.Text>Amigos</S.Text>
         </NavLink>
       </S.Menu>
-      <Button>Novo Post</Button>
+      <ModalCreatePost />
     </S.Wrapper>
   )
 }

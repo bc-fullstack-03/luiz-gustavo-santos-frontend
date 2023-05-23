@@ -1,4 +1,8 @@
-import { ButtonHTMLAttributes } from 'react'
+import {
+  ButtonHTMLAttributes,
+  ForwardRefRenderFunction,
+  forwardRef
+} from 'react'
 
 import * as S from './styles'
 
@@ -7,14 +11,14 @@ type ButtonProps = {
   disabled?: boolean
 } & ButtonHTMLAttributes<HTMLButtonElement>
 
-export const Button: React.FC<ButtonProps> = ({
-  children,
-  disabled,
-  ...props
-}) => {
+export const ButtonBase: ForwardRefRenderFunction<
+  HTMLButtonElement,
+  ButtonProps
+> = ({ children, disabled, ...props }, ref) => {
   return (
-    <S.Wrapper disabled={disabled} {...props}>
+    <S.Wrapper disabled={disabled} ref={ref} {...props}>
       {children}
     </S.Wrapper>
   )
 }
+export const Button = forwardRef(ButtonBase)
