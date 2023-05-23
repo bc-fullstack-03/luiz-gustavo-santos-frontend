@@ -1,6 +1,8 @@
 export { AppLayout } from './AppLayout'
 export { AuthLayout } from './AuthLayout'
 export { Button } from './Button'
+export { Comments } from './Comments'
+export { Container } from './Container'
 export { FeedItem } from './FeedItem'
 export { FeedList } from './FeedList'
 export { Form } from './Form'

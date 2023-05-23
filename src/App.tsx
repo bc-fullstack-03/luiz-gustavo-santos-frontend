@@ -12,6 +12,7 @@ import SignUp from './pages/SignUp'
 import Feed from './pages/Feed'
 import Profile from './pages/Profile'
 import Friends from './pages/Friiends'
+import PostDetails from './pages/PostDetails'
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
           }
         >
           <Route path="feed" index element={<Feed />} />
+          <Route path="post/:id" index element={<PostDetails />} />
           <Route path="profile" index element={<Profile />} />
           <Route path="friends" index element={<Friends />} />
         </Route>
