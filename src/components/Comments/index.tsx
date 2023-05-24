@@ -48,6 +48,8 @@ export const Comments: React.FC<CommentsProps> = ({ postId }) => {
       {
         onSuccess: () => {
           queryClient.invalidateQueries({ queryKey: ['comments', postId] })
+          queryClient.invalidateQueries({ queryKey: ['post', postId] })
+
           setValue('comment', '')
         }
       }

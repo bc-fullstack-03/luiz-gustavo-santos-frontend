@@ -19,18 +19,37 @@ type FeedItemProps = {
 }
 
 export const FeedItem: React.FC<FeedItemProps> = ({ post }) => {
-  const [liked, setLiked] = useState(true)
   const { userId } = useAuth()
 
-  const mutation = useMutation({
+  const [liked, setLiked] = useState(() => {
+    if (userId) {
+      return post.likes.includes(userId)
+    }
+    return false
+  })
+
+  const deletePostMutation = useMutation({
     mutationFn: (postId: string) => api.delete(`/post/${postId}`)
   })
 
+  const likePostMutation = useMutation({
+    mutationFn: (postId: string) => api.post('/post/like', { postId })
+  })
+
   const handleDelte = (postId: string) => {
-    mutation.mutate(postId, {
+    deletePostMutation.mutate(postId, {
       onSuccess: () => {
         toast.success('Post deletado')
         queryClient.invalidateQueries({ queryKey: ['feed'] })
+      }
+    })
+  }
+
+  const handleLike = (postId: string) => {
+    likePostMutation.mutate(postId, {
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ['feed'] })
+        setLiked((prev) => !prev)
       }
     })
   }
@@ -73,12 +92,9 @@ export const FeedItem: React.FC<FeedItemProps> = ({ post }) => {
             </S.WrapperIcon>
           </Link>
 
-          <S.WrapperIcon
-            isLiked={liked}
-            onClick={() => setLiked((prev) => !prev)}
-          >
+          <S.WrapperIcon isLiked={liked} onClick={() => handleLike(post.id)}>
             <Heart weight={liked ? 'fill' : 'thin'} size={24} />
-            {post.likes}
+            {post.likes.length}
           </S.WrapperIcon>
         </S.Footer>
       </S.Container>
