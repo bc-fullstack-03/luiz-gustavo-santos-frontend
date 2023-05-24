@@ -22,7 +22,8 @@ export default {
     gray100: '#E1E1E6',
     gray500: '#7C7C8A',
     gray900: '#202024',
-    primary: '#81D8F7'
+    primary: '#81D8F7',
+    warning: '#a60432'
   },
   spacings: {
     xxsmall: '0.8rem',

@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -12,9 +12,17 @@ import api from '@/services/api'
 import { useAuth } from '@/hooks'
 import { User } from '@/components/FriendsList'
 
-import { Button, Container, Form, Header, Input } from '@/components'
+import {
+  Button,
+  Container,
+  Form,
+  Header,
+  Input,
+  ModalConfirmation
+} from '@/components'
 
 import * as S from './styles'
+import { signOut } from '@/services/auth'
 
 const updateUserSchema = z.object({
   name: z.string().min(3, 'O nome deve ter no mínimo 3 letras'),
@@ -27,6 +35,7 @@ const Profile = () => {
   const { userId: userLoggedId } = useAuth()
   const [searchParams] = useSearchParams()
   const searchParamUser = searchParams.get('user')
+  const navigate = useNavigate()
 
   const { data: user, isLoading } = useQuery({
     queryKey: ['user', searchParamUser],
@@ -43,13 +52,24 @@ const Profile = () => {
     resolver: zodResolver(updateUserSchema)
   })
 
-  const mutation = useMutation({
+  const updateUserMutation = useMutation({
     mutationFn: (formData: UpdateUserFormData) =>
       api.put(`/user/${user?.data.id}`, formData)
   })
 
+  const deleteUserMutation = useMutation({
+    mutationFn: () => api.delete(`/user/${user?.data.id}`),
+    onSuccess: () => {
+      signOut()
+      navigate('/')
+    },
+    onError: () => {
+      toast.error('Ocorreu um erro ao deletar a conta')
+    }
+  })
+
   const onSubmit: SubmitHandler<UpdateUserFormData> = (data) => {
-    mutation.mutate(
+    updateUserMutation.mutate(
       { name: data.name, password: data.password || null },
       {
         onSuccess: () => {
@@ -61,6 +81,10 @@ const Profile = () => {
         }
       }
     )
+  }
+
+  const handleDeleteUser = () => {
+    deleteUserMutation.mutate()
   }
 
   useEffect(() => {
@@ -98,6 +122,14 @@ const Profile = () => {
           </S.InfoContainer>
 
           <S.FormContaier visibilitHidden={userLoggedId !== user?.data.id}>
+            <ModalConfirmation
+              title="Deseja deletar sua conta?"
+              description="Essa é uma ação irreverssível e não poderá ser desfeita."
+              triggerButton={<S.DeleteAccount>Deletar conta</S.DeleteAccount>}
+              buttonConfirmationText="Confirmar"
+              onConfirm={handleDeleteUser}
+            />
+
             <h3>Atualizar dados</h3>
 
             <Form onSubmit={handleSubmit(onSubmit)}>
