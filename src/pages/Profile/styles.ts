@@ -20,7 +20,7 @@ export const InfoContainer = styled.div`
     justify-content: center;
     gap: ${theme.spacings.xsmall};
     text-align: center;
-    margin-bottom: 6.4rem;
+    margin-bottom: ${theme.spacings.small};
 
     strong {
       display: block;
@@ -57,10 +57,13 @@ export const FormContaier = styled.div<FormContaierProps>`
     display: ${visibilitHidden ? 'none' : 'block'};
     width: 100%;
     max-width: 45rem;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: ${theme.spacings.large};
 
     h3 {
       font-size: ${theme.font.sizes.xlarge};
-      margin-bottom: ${theme.spacings.small};
+      margin-bottom: ${theme.spacings.large};
     }
   `}
 `
@@ -70,4 +73,26 @@ export const PhotoContainer = styled.img`
   height: 10rem;
   border-radius: 10rem;
   object-fit: cover;
+`
+
+export const DeleteAccount = styled.button`
+  ${({ theme }) => css`
+    width: 100%;
+    max-width: max-content;
+    padding: ${theme.spacings.xxsmall} ${theme.spacings.xsmall};
+    color: ${theme.colors.warning};
+    margin-bottom: 6rem;
+    background: none;
+    border: 1px solid transparent;
+    font-size: ${theme.font.sizes.medium};
+    font-family: ${theme.font.family};
+    cursor: pointer;
+    transition: all 0.3s ease;
+    align-self: center;
+
+    &:hover {
+      border: 1px solid ${theme.colors.warning};
+      border-radius: 0.4rem;
+    }
+  `}
 `

@@ -9,7 +9,7 @@ export interface Post {
   userId: string
   userName: string
   comments: Comment[]
-  likes: number
+  likes: string[]
   createdAt: Date
   updateAt: Date
 }
