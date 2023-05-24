@@ -60,6 +60,22 @@ export const Comment = styled.div`
 
     background-color: ${theme.colors.gray900};
 
+    > div {
+      display: flex;
+      align-items: center;
+      gap: ${theme.spacings.xsmall};
+      justify-content: space-between;
+    }
+
+    svg {
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        color: #a60432;
+      }
+    }
+
     strong {
       font-size: ${theme.font.sizes.medium};
       word-break: break-all;

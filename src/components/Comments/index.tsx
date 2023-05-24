@@ -1,4 +1,4 @@
-import { PaperPlaneRight, UserCircle } from '@phosphor-icons/react'
+import { PaperPlaneRight, TrashSimple, UserCircle } from '@phosphor-icons/react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -11,6 +11,7 @@ import * as S from './styles'
 import { useMutation } from '@tanstack/react-query'
 import api from '@/services/api'
 import { queryClient } from '@/libs/react-query'
+import { useAuth } from '@/hooks'
 
 type CommentsProps = {
   postId: string
@@ -27,20 +28,31 @@ type Variables = {
 }
 
 export const Comments: React.FC<CommentsProps> = ({ postId }) => {
+  const { userId } = useAuth()
   const { data } = useComments(postId)
 
   const { handleSubmit, register, setValue } = useForm<CommentFormData>({
     resolver: zodResolver(commentSchema)
   })
 
-  const mutation = useMutation({
+  const crateCommentMutation = useMutation({
     mutationFn: (variables: Variables) => {
       return api.post('/post/comment', variables)
     }
   })
 
+  const deleteCommentMutation = useMutation({
+    mutationFn: (commentId: string) => {
+      return api.delete(`/post/comment/${commentId}`, {
+        data: {
+          postId
+        }
+      })
+    }
+  })
+
   const onSubmit: SubmitHandler<CommentFormData> = async ({ comment }) => {
-    mutation.mutate(
+    crateCommentMutation.mutate(
       {
         comment,
         postId
@@ -56,6 +68,15 @@ export const Comments: React.FC<CommentsProps> = ({ postId }) => {
     )
   }
 
+  const handleDelteComment = (commentId: string) => {
+    deleteCommentMutation.mutate(commentId, {
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ['comments', postId] })
+        queryClient.invalidateQueries({ queryKey: ['post', postId] })
+      }
+    })
+  }
+
   return (
     <S.Wrapper>
       <div>
@@ -68,7 +89,16 @@ export const Comments: React.FC<CommentsProps> = ({ postId }) => {
           <li key={comment.id}>
             <UserCircle size={24} weight="fill" />
             <S.Comment>
-              <strong>{comment.username}</strong>
+              <div>
+                <strong>{comment.username}</strong>
+                {userId === comment.userId && (
+                  <TrashSimple
+                    size={18}
+                    weight="thin"
+                    onClick={() => handleDelteComment(comment.id)}
+                  />
+                )}
+              </div>
 
               <p>{comment.content}</p>
             </S.Comment>
