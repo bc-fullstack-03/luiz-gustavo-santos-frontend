@@ -76,37 +76,28 @@ export const ModalCreatePost = () => {
 
   return (
     <Modal buttonTitle="Novo Post">
-      <S.Content>
-        <S.Title as="h3">Novo post</S.Title>
-        <Form onSubmit={handleSubmit(onSubmit)}>
-          <Input
-            id="content"
-            label="Conteúdo"
-            placeholder="Digite aqui..."
-            {...register('content')}
-            error={errors.content?.message}
-          />
+      <S.Title as="h3">Novo post</S.Title>
+      <Form onSubmit={handleSubmit(onSubmit)}>
+        <Input
+          id="content"
+          label="Conteúdo"
+          placeholder="Digite aqui..."
+          {...register('content')}
+          error={errors.content?.message}
+        />
 
-          <Dropzone onDrop={onDrop} filePreview={filePreview} />
-          <S.ButtonsContainer>
-            <Dialog.Close
-              asChild
-              onClick={onClose}
-              disabled={mutation.isLoading}
-            >
-              <Button
-                type="button"
-                style={{ background: theme.colors.gray100 }}
-              >
-                Cancelar
-              </Button>
-            </Dialog.Close>
-            <Button type="submit" disabled={mutation.isLoading}>
-              Salvar
+        <Dropzone onDrop={onDrop} filePreview={filePreview} />
+        <S.ButtonsContainer>
+          <Dialog.Close asChild onClick={onClose} disabled={mutation.isLoading}>
+            <Button type="button" style={{ background: theme.colors.gray100 }}>
+              Cancelar
             </Button>
-          </S.ButtonsContainer>
-        </Form>
-      </S.Content>
+          </Dialog.Close>
+          <Button type="submit" disabled={mutation.isLoading}>
+            Salvar
+          </Button>
+        </S.ButtonsContainer>
+      </Form>
     </Modal>
   )
 }

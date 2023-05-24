@@ -30,6 +30,18 @@ export const Header = styled.div`
     strong {
       font-size: ${theme.font.sizes.xlarge};
     }
+
+    a {
+      display: inline-block;
+      color: inherit;
+      text-decoration: none;
+      transition: all 0.3s ease;
+
+      &:hover {
+        color: ${theme.colors.primary};
+        text-decoration: underline;
+      }
+    }
   `}
 `
 
