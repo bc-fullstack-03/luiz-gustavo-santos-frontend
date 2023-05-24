@@ -6,8 +6,9 @@ import api from '@/services/api'
 import { useAuth } from '@/hooks'
 import { toast } from 'react-hot-toast'
 import { queryClient } from '@/libs/react-query'
+import { Link } from 'react-router-dom'
 
-type User = {
+export type User = {
   id: string
   name: string
   email: string
@@ -73,7 +74,9 @@ export const FriendsList = () => {
             <S.Content>
               <S.Header>
                 <UserCircle size={38} weight="thin" />
-                <strong>{user.name}</strong>
+                <Link to={`/app/profile?user=${user.id}`}>
+                  <strong>{user.name}</strong>
+                </Link>
               </S.Header>
               <S.Followers>
                 <span>{user.followers.length ?? 0} seguidores</span>

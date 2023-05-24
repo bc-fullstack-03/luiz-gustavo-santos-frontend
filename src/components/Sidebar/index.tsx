@@ -5,8 +5,10 @@ import logo from '@/assets/logo-white.svg'
 
 import * as S from './styles'
 import { ModalCreatePost } from '..'
+import { useAuth } from '@/hooks'
 
 export const Sidebar = () => {
+  const { userId } = useAuth()
   return (
     <S.Wrapper>
       <S.BoxLogo>
@@ -18,7 +20,7 @@ export const Sidebar = () => {
           <House weight="fill" size={32} />
           <S.Text>Página Inicial</S.Text>
         </NavLink>
-        <NavLink to="/app/profile">
+        <NavLink to={`/app/profile?user=${userId}`}>
           <User weight="fill" size={32} />
           <S.Text>Perfil</S.Text>
         </NavLink>

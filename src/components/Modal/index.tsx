@@ -17,7 +17,7 @@ export const Modal: React.FC<ModalProps> = ({ buttonTitle, children }) => {
       </Dialog.Trigger>
       <Dialog.Portal>
         <S.Overlay />
-        {children}
+        <S.Content>{children}</S.Content>
       </Dialog.Portal>
     </Dialog.Root>
   )
