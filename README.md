@@ -1,7 +1,5 @@
 # Parrot App
 
-Projeto de uma rede social 
-
 ### Tecnologias utilizadas
 - React
 - TypeScript
@@ -9,6 +7,10 @@ Projeto de uma rede social
 - Styled-Components
 
 ### Para excutar aplicação localmente
+
+```shell
+git clone https://github.com/bc-fullstack-03/luiz-gustavo-santos-frontend.git
+```
 
 ***Importante***
 
