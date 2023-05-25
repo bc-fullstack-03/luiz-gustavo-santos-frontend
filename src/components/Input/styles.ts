@@ -79,7 +79,7 @@ export const Label = styled.label`
 export const ErrorMessage = styled.span`
   ${({ theme }) => css`
     display: block;
-    color: red;
+    color: ${theme.colors.warning};
     font-size: ${theme.font.sizes.xsmall};
     margin-top: ${theme.spacings.xxsmall};
   `}

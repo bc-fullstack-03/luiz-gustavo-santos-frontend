@@ -49,6 +49,7 @@ export const FeedItem: React.FC<FeedItemProps> = ({ post }) => {
     likePostMutation.mutate(postId, {
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ['feed'] })
+        queryClient.invalidateQueries({ queryKey: ['post'] })
         setLiked((prev) => !prev)
       }
     })
