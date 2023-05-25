@@ -94,7 +94,7 @@ export const WrapperIcon = styled.button<WrapperIconProps>`
     ${isLiked &&
     css`
       svg {
-        color: ${theme.colors.primary};
+        color: ${theme.colors.warning};
       }
     `}
   `}

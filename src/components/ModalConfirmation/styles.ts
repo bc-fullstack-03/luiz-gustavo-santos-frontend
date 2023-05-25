@@ -53,7 +53,7 @@ export const Button = styled(ButtonStyles.Wrapper)`
   ${({ theme }) => css`
     height: 4rem;
     background: #ff759d;
-    color: #a60432;
+    color: ${theme.colors.warning};
     width: max-content;
 
     &.cancel {

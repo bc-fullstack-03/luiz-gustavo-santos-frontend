@@ -121,35 +121,37 @@ const Profile = () => {
             </S.Followers>
           </S.InfoContainer>
 
-          <S.FormContaier visibilitHidden={userLoggedId !== user?.data.id}>
-            <ModalConfirmation
-              title="Deseja deletar sua conta?"
-              description="Essa é uma ação irreverssível e não poderá ser desfeita."
-              triggerButton={<S.DeleteAccount>Deletar conta</S.DeleteAccount>}
-              buttonConfirmationText="Confirmar"
-              onConfirm={handleDeleteUser}
-            />
-
-            <h3>Atualizar dados</h3>
-
-            <Form onSubmit={handleSubmit(onSubmit)}>
-              <Input
-                id="name"
-                label="Nome"
-                placeholder="Seu nome aqui"
-                {...register('name')}
-                error={errors.name?.message}
+          {userLoggedId === user?.data.id && (
+            <S.FormContaier visibilitHidden={userLoggedId !== user?.data.id}>
+              <ModalConfirmation
+                title="Deseja deletar sua conta?"
+                description="Essa é uma ação irreverssível e não poderá ser desfeita."
+                triggerButton={<S.DeleteAccount>Deletar conta</S.DeleteAccount>}
+                buttonConfirmationText="Confirmar"
+                onConfirm={handleDeleteUser}
               />
-              <Input
-                id="name"
-                label="Senha"
-                placeholder="******"
-                {...register('password')}
-                error={errors.password?.message}
-              />
-              <Button style={{ marginTop: '1.6rem' }}>Salvar</Button>
-            </Form>
-          </S.FormContaier>
+
+              <h3>Atualizar dados</h3>
+
+              <Form onSubmit={handleSubmit(onSubmit)}>
+                <Input
+                  id="name"
+                  label="Nome"
+                  placeholder="Seu nome aqui"
+                  {...register('name')}
+                  error={errors.name?.message}
+                />
+                <Input
+                  id="name"
+                  label="Senha"
+                  placeholder="******"
+                  {...register('password')}
+                  error={errors.password?.message}
+                />
+                <Button style={{ marginTop: '1.6rem' }}>Salvar</Button>
+              </Form>
+            </S.FormContaier>
+          )}
         </S.Container>
       </Container>
     </>
